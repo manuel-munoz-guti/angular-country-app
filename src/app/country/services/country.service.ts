@@ -34,4 +34,16 @@ export class CountryService {
       })
     );
   }
+
+  searchCountryByAlphaCode( code: string){
+    code = code.trim().toLowerCase();
+    return this.http.get<RESTCountry[]>(`${API_URL}/alpha/${code}`)
+    .pipe(
+      map((restCountries) => CountryMapper.mapRestToCountries(restCountries)),
+      map((countries) => countries.at(0)),
+      catchError((err) => {
+        return throwError( () => new Error(`No se pudo obtener paises con ese codig: ${code}`));
+      })
+    );
+  }
 }

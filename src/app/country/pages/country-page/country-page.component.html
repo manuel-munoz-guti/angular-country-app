@@ -1,1 +1,13 @@
-<p>country-page works! {{ code() }} </p>
+@if (countryResorce.error()) {
+  <app-not-found />
+}
+
+@if (countryResorce.isLoading()) {
+  <h1>
+    Cargando....
+  </h1>
+}
+
+@if (countryResorce.hasValue()) {
+  <country-information  [country]="countryResorce.value()"/>
+}
